@@ -1,11 +1,11 @@
 require('dotenv').config();
 const webpack = require('webpack');
-const TerserPlugin = require("terser-webpack-plugin");
+// const TerserPlugin = require("terser-webpack-plugin");
 
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, './client/src/index.js'),
+  entry: path.join(__dirname, './client/src/index.jsx'),
   output: {
     path: path.join(__dirname, './client/dist'),
     filename: 'bundle.js',
@@ -14,28 +14,15 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin(
-      {
-        test: /\.js(\?.*)?$/i,
-      },
-    ),
-    ],
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {},
-    }),
-  ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-env'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
@@ -45,4 +32,18 @@ module.exports = {
       },
     ],
   },
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [new TerserPlugin(
+  //     {
+  //       test: /\.js(\?.*)?$/i,
+  //     },
+  //   ),
+  //   ],
+  // },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {},
+    }),
+  ],
 };
