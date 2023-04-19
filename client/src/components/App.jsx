@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import Selector from './Selector';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  useEffect(() => {
-    axios.post('/api/writeme', { prompt: 'Hello Peter' })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
   return (
-    <div>Ollo</div>
+    <>
+      <h1>Write Me</h1>
+      <div>
+        <Selector />
+      </div>
+      <ToastContainer />
+    </>
   );
 }
 
