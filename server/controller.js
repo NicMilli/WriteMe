@@ -39,7 +39,7 @@ const createPrompt = (formData) => {
   if (formData.usage) {
     intro += ' In a usage section give some examples of when would be appropriate to use the project.';
   }
-  intro += ' In a wins and improvements section Summarize what the project did well and what could be improved upon. Finally, give some tips on how to make this readme look even better. Provide a link to this repository to find better badges or alexandresanlim/Badges4-README.md-Profile#badges.';
+  intro += ' In a wins and improvements section Summarize what the project did well and what could be improved upon. Finally, give some tips on how to make this readme look even better. Provide a link to this repository to find better badges alexandresanlim/Badges4-README.md-Profile#badges.';
   return intro;
 };
 

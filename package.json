@@ -16,7 +16,9 @@
   "scripts": {
     "dev": "npx webpack --watch --mode development & npx nodemon --watch server server/index.js",
     "client-dev": "npx webpack --watch",
-    "server-dev": "nodemon server server/index.js"
+    "server-dev": "nodemon server server/index.js",
+    "build": "npx webpack --mode production",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
