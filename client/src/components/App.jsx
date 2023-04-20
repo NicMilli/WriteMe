@@ -43,7 +43,7 @@ function App() {
           </div>
         )
         : (
-          <div className="center">
+          <div className="app center">
             <Selector />
           </div>
         )}

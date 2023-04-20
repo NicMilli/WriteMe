@@ -41,6 +41,11 @@ button {
   background-color: #177E89;
   color: black;
   cursor: pointer;
+  margin-left: 20px;
+}
+
+button:hover {
+  color: #FFC857;
 }
 
 .night {
@@ -51,4 +56,49 @@ button {
   height: 80vh;
 }
 
+input[type="checkbox"] {
+  appearance: none;
+  background-color: #484547;
+  margin: 0;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.2em solid #FFC857;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.8em;
+  height: 0.8em;
+  transform: scale(0);
+  transition: 90ms transform ease-in-out;
+  box-shadow: inset 1em 1em #FFC857;
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.read-me {
+  display: grid;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100vw;
+}
+
+.selector {
+  width: 100vw;
+  display: grid;
+  justify-content: center;
+  align-items: left;
+}
 /* others: red- #DB3A34, dark blu- #084C61, light blu- #177E89 */
