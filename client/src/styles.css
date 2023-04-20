@@ -89,8 +89,6 @@ input[type="checkbox"]:checked::before {
 
 .app {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   width: 100vw;
 }
@@ -98,7 +96,6 @@ input[type="checkbox"]:checked::before {
 .selector {
   width: 100vw;
   display: grid;
-  justify-content: center;
-  align-items: left;
+  float: left;
 }
 /* others: red- #DB3A34, dark blu- #084C61, light blu- #177E89 */
