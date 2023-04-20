@@ -1,7 +1,11 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Result from './Result';
+import Spinner from './Spinner';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Selector() {
   const [formData, setFormData] = useState({
@@ -18,14 +22,17 @@ function Selector() {
     authors: true,
   });
   const [readMe, setReadMe] = useState('');
-  console.log(readMe);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (newSelection) => {
+    setLoading(true);
     try {
       const update = await axios.post('/api/writeme', newSelection);
       setReadMe(update.data);
+      setLoading(false);
     } catch (err) {
       toast.error(err);
+      setLoading(false);
     }
   };
 
@@ -39,9 +46,9 @@ function Selector() {
   };
 
   return (
-    <>
+    <div>
       <h2>Lets refine your ReadMe</h2>
-      <div>
+      <main>
         <form
           type="submit"
           onSubmit={(e) => {
@@ -50,14 +57,16 @@ function Selector() {
           }}
         >
           <div>
-            <input
-              type="text"
-              name="repo"
-              value={formData.repo}
-              onChange={handleChange}
-              placeholder="Repo*"
-              required
-            />
+            <label>
+              Repository:
+              <input
+                type="text"
+                name="repo"
+                value={formData.repo}
+                onChange={handleChange}
+                required
+              />
+            </label>
           </div>
 
           <div>
@@ -136,11 +145,20 @@ function Selector() {
 
           <button type="submit">Generate ReadMe!</button>
         </form>
+      </main>
+      <hr style={{
+        color: 'black',
+        width: '50vw',
+      }}
+      />
+      <div className="result center">
+        {loading
+          ? <Spinner />
+          : readMe.length > 0
+            ? <Result formData={formData} readMe={readMe} />
+            : <FontAwesomeIcon icon={faGear} size="2xl" style={{ color: '#177E89' }} />}
       </div>
-      <div>
-        <Result formData={formData} readMe={readMe} />
-      </div>
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,54 @@
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label, input {
+  display: block;
+  margin: 10px;
+}
+
+.result {
+  min-height: 200px;
+}
+
+body {
+  background-color: #484547;
+  color: #FFC857;
+}
+
+input {
+  background-color: #177E89;
+  border: 1px solid;
+  color: #FFC857;
+  border-radius: 0.5rem;
+  outline-color: #FFC857;
+  padding: 4px 7px;
+}
+
+input:hover {
+  border-color: #FFC857;
+}
+
+input::placeholder {
+  color: #FFC857;
+}
+
+button {
+  border-radius: 0.5rem;
+  padding: 4px 7px;
+  background-color: #177E89;
+  color: black;
+  cursor: pointer;
+}
+
+.night {
+  float: right;
+}
+
+.video {
+  height: 80vh;
+}
+
+/* others: red- #DB3A34, dark blu- #084C61, light blu- #177E89 */

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'react-toastify';
+import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Result({ readMe }) {
   const copyToClipboard = () => {
@@ -15,7 +17,7 @@ function Result({ readMe }) {
         ? (
           <div>
             <button type="button" aria-label="Copy" onClick={copyToClipboard}>
-              Copy
+              Copy <FontAwesomeIcon icon={faPaperclip} />
             </button>
             <ReactMarkdown>{readMe}</ReactMarkdown>
           </div>
