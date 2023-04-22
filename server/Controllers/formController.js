@@ -6,10 +6,11 @@ const config = new Configuration({
 });
 const openai = new OpenAIApi(config);
 
-const createPrompt = (formData) => {
+const createPrompt = ({ formData, badges }) => {
+  const badgeLinks = badges.map((badge) => badge.link);
   let intro = `Generate a Readme.md file for the github repository ${formData.repo}. Have a table of contents to link to each section. Give a brief description of what the project does, when to use it and what some challenges were.`;
-  if (formData.badges) {
-    intro += ' Find markdown badges for the technologies used in the project from alexandresanlim/Badges4-README.md-Profile#badges .';
+  if (formData.tech) {
+    intro += ` Include a technologies used section with these badges embedded: ${badgeLinks}. Find markdown badges for the remaining technologies used in the project from alexandresanlim/Badges4-README.md-Profile#badges.`;
     if (formData.technologiesFile.length > 0) {
       intro += ` A list of technologies can be found in ${formData.technologiesFile} file.`;
     } else {
@@ -50,7 +51,7 @@ module.exports = {
         model: "text-davinci-003",
         prompt: createPrompt(req.body),
         temperature: 0.6,
-        max_tokens: 3500,
+        max_tokens: 3000,
       });
       res.setHeader('content-type', 'text/plain');
       res.status(200).send(generation.data.choices[0].text);

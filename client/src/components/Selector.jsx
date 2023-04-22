@@ -1,16 +1,16 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Result from './Result';
 import Spinner from './Spinner';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Selector() {
   const [formData, setFormData] = useState({
     repo: '',
-    badges: true,
+    tech: true,
     technologiesFile: '',
     visuals: false,
     images: '',
@@ -21,13 +21,30 @@ function Selector() {
     contributing: false,
     authors: true,
   });
+
   const [readMe, setReadMe] = useState('');
   const [loading, setLoading] = useState(false);
+  const [techBadges, setTechBadges] = useState({});
+
+  const fetchBadges = async () => {
+    const fetchedBadges = await axios.get('/api/badges');
+    const badgeArray = await fetchedBadges.data;
+    setTechBadges(badgeArray);
+  };
+
+  useEffect(() => {
+    fetchBadges();
+  }, []);
 
   const handleSubmit = async () => {
     setLoading(true);
+    const allBadges = [...techBadges];
+    const selectedBadges = allBadges.filter((badge) => badge.selected === true);
     try {
-      const update = await axios.post('/api/writeme', formData);
+      const update = await axios.post('/api/writeme', {
+        formData,
+        badges: selectedBadges,
+      });
       setReadMe(update.data);
       setLoading(false);
     } catch (err) {
@@ -40,7 +57,7 @@ function Selector() {
     e.preventDefault();
     setFormData({
       repo: '',
-      badges: true,
+      tech: true,
       technologiesFile: '',
       visuals: false,
       images: '',
@@ -60,6 +77,12 @@ function Selector() {
 
   const handleCheckbox = (e) => {
     setFormData((prevFormData) => ({ ...prevFormData, [e.target.name]: e.target.checked }));
+  };
+
+  const handleBadges = (e, ind) => {
+    const copyArr = [...techBadges];
+    copyArr[ind].selected = e.target.checked;
+    setTechBadges(copyArr);
   };
 
   return (
@@ -91,11 +114,33 @@ function Selector() {
               Technology badges:
               <input
                 type="checkbox"
-                name="badges"
-                checked={formData.badges}
+                name="tech"
+                checked={formData.tech}
                 onChange={handleCheckbox}
               />
             </label>
+          </div>
+
+          <div>
+            {techBadges.length > 0
+              ? (
+                <ul className="tech-container">
+                  {techBadges.map((badge, ind) => (
+                    <li key={`${badge._id}`}>
+                      <label>
+                        {badge.name}
+                        <input
+                          type="checkbox"
+                          name={badge.name}
+                          checked={badge.selected}
+                          onChange={(e) => { handleBadges(e, ind); }}
+                        />
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              )
+              : null }
           </div>
 
           <div className="ckeck-box">

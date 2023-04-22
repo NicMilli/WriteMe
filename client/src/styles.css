@@ -16,6 +16,7 @@ label, input {
 body {
   background-color: #484547;
   color: #FFC857;
+  margin: 0px 20px;
 }
 
 input {
@@ -97,5 +98,12 @@ input[type="checkbox"]:checked::before {
   width: 100vw;
   display: grid;
   float: left;
+}
+
+.tech-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
 }
 /* others: red- #DB3A34, dark blu- #084C61, light blu- #177E89 */
